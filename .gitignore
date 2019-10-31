@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/RealTimeCharts_Server/aws-beanstalk-tools-defaults.json

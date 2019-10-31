@@ -20,7 +20,7 @@ namespace RealTimeCharts_Server
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
-                .WithOrigins("http://localhost:4200")
+                .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());
@@ -50,10 +50,6 @@ namespace RealTimeCharts_Server
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<ChartHub>("/chart");
-                //endpoints.MapGet("/", async context =>
-                //{
-                //    await context.Response.WriteAsync("Hello World!");
-                //});
             });
         }
     }
