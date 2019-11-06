@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RealTimeCharts_Server.HubConfig
+namespace AlertRealTimeServer.HubConfig
 {
-    public class ChartHub : Hub
+    public class AlertHub : Hub
     {
     }
 }

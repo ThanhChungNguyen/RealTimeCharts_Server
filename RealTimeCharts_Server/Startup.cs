@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AlertRealTimeServer.HubConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RealTimeCharts_Server.HubConfig;
 
-namespace RealTimeCharts_Server
+namespace AlertRealTimeServer
 {
     public class Startup
     {
@@ -20,7 +20,7 @@ namespace RealTimeCharts_Server
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
-                .WithOrigins("http://localhost:4200", "https://dev-adminsite.gtwworld.com")
+                .WithOrigins("http://localhost:4200", "https://localhost:4200", "https://dev-adminsite.gtwworld.com", "https://demo-adminsite.gtwworld.com", "https://test-adminsite.gtwworld.com")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials());
@@ -38,18 +38,14 @@ namespace RealTimeCharts_Server
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseCors("CorsPolicy");
 
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ChartHub>("/chart");
+                endpoints.MapHub<AlertHub>("/alert");
             });
         }
     }
