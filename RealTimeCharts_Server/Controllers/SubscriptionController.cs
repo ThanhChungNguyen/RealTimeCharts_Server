@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.SignalR;
 using AlertRealTimeServer.HubConfig;
 using AlertRealTimeServer.DataStorage;
 using AlertRealTimeServer.Models;
+using Telegram.Bot;
 
 namespace AlertRealTimeServer.Controllers
 {
@@ -50,12 +51,24 @@ namespace AlertRealTimeServer.Controllers
                 if (message.IsNotificationType)
                 {
                     TranferToListener(message);
+                    SendMessageToTelegramAsync(message);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Cannot handle SNS message: " + ex.Message);
                 return;
+            }
+        }
+
+        private async Task SendMessageToTelegramAsync(Message message)
+        {
+            var userIds = new List<int>() { 965257084 };
+            var token = "942063387:AAFplGvIyyOfd36X6UeKH9r59sb5mcqIwwg";
+            var telegramBotClient = new TelegramBotClient(token);
+            foreach (var userId in userIds)
+            {
+                await telegramBotClient.SendTextMessageAsync(userId, message.MessageText);
             }
         }
 
